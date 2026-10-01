@@ -16,36 +16,11 @@ import {
   getSelectorTreeString,
 } from './libs/errors/dom';
 import { AmbientlightError } from './libs/errors/ambient-light-error';
-import SentryReporter, {
-  setVersion,
-  setCrashOptions,
-} from './libs/errors/sentry-reporter';
+import ErrorReporter from './libs/errors/error-reporter';
 import Ambientlight from './libs/ambientlight';
 import Settings from './libs/settings';
-import { contentScript } from './libs/messaging/content';
-import { getVersion } from './libs/utils';
-import { defaultCrashOptions, storage } from './libs/storage';
 
-setErrorHandler((ex) => SentryReporter.captureException(ex));
-
-wrapErrorHandler(async function initVersionAndCrashOptions() {
-  const version = getVersion(); // document.currentScript?.getAttribute('data-version') || ''
-  setVersion(version);
-  // const options = JSON.parse(document.currentScript?.getAttribute('data-crash-options'))
-  const crashOptions =
-    (await storage.get('crashOptions')) || defaultCrashOptions;
-  setCrashOptions(crashOptions);
-  contentScript.addMessageListener('crashOptions', (newCrashOptions) => {
-    setCrashOptions(newCrashOptions);
-  });
-
-  storage.addListener(function storageListener(changes) {
-    if (!changes.crashOptions?.newValue) return;
-
-    const crashOptions = changes.crashOptions.newValue;
-    setCrashOptions(crashOptions);
-  });
-})();
+setErrorHandler((ex) => ErrorReporter.captureException(ex));
 
 let errorEvents;
 wrapErrorHandler(function initErrorEvents() {
@@ -467,6 +442,6 @@ const onLoad = wrapErrorHandler(async function onLoadCallback() {
       onLoad();
     }
   } catch (ex) {
-    SentryReporter.captureException(ex);
+    ErrorReporter.captureException(ex);
   }
 })();

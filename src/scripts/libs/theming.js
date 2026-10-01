@@ -7,7 +7,7 @@ import {
   wrapErrorHandler,
 } from './generic';
 import { injectedScript } from './messaging/injected';
-import SentryReporter from './errors/sentry-reporter';
+import ErrorReporter from './errors/error-reporter';
 import { storage } from './storage';
 
 const THEME_LIGHT = -1;
@@ -79,7 +79,7 @@ export default class Theming {
         }, true)
       );
     } catch (ex) {
-      SentryReporter.captureException(ex);
+      ErrorReporter.captureException(ex);
     }
 
     let themeCorrections = 0;
