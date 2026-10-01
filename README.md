@@ -71,3 +71,4 @@ Feel free to
 5. After you've modified a file in the `/src` folder follow these steps:
     1. In the terminal/commandline enter `npm run build`
     2. In Chrome go to the url [chrome://extensions/](chrome://extensions/) and click the refresh/update button in the card of the extension.
+6. To download a packaged build, open the latest successful **Build Chrome extension** run in the repository's Actions tab and download the `chrome-extension-package` artifact. Extract the ZIP, then use **Load unpacked** on the extracted folder in `chrome://extensions/`.
