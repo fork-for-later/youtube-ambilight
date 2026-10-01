@@ -10,7 +10,7 @@ import {
   VIEW_FULLSCREEN,
   setDisplayErrorHandler,
 } from './generic';
-import SentryReporter from './errors/sentry-reporter';
+import ErrorReporter from './errors/error-reporter';
 import SettingsConfig, {
   prepareSettingsConfigOnce,
   WebGLOnlySettings,
@@ -1391,7 +1391,7 @@ But if this happens frequently, here are some possible causes:
         controlsHTML: document.querySelector(settingsMenuBtnParentSelector)
           ?.outerHTML,
       };
-      SentryReporter.captureException(error);
+      ErrorReporter.captureException(error);
     }
 
     const svgElem = document.createElementNS(xmlns, 'svg');
@@ -2011,7 +2011,7 @@ But if this happens frequently, here are some possible causes:
       }
 
       if (ex.message !== 'An unexpected error occurred')
-        SentryReporter.captureException(ex);
+        ErrorReporter.captureException(ex);
 
       this.logStorageWarningOnce(
         `Failed to save settings ${JSON.stringify(
@@ -2116,7 +2116,7 @@ But if this happens frequently, here are some possible causes:
         "Ambient light has been updated with new settings\nClick to see what's new";
       this.showingUpdatesMessage = true;
     } catch (ex) {
-      SentryReporter.captureException(ex);
+      ErrorReporter.captureException(ex);
     }
   };
 
