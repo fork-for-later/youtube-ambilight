@@ -2,6 +2,7 @@ import { storage } from './libs/storage';
 import { syncStorage } from './libs/sync-storage';
 import { getFeedbackFormLink, getPrivacyPolicyLink } from './libs/utils';
 import SettingsConfig from './libs/settings-config';
+import { on } from './libs/generic';
 
 document.querySelector('#feedbackFormLink').href = getFeedbackFormLink();
 document.querySelector('#privacyPolicyLink').href = getPrivacyPolicyLink();

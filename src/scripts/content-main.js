@@ -19,7 +19,6 @@ import { AmbientlightError } from './libs/errors/ambient-light-error';
 import ErrorReporter from './libs/errors/error-reporter';
 import Ambientlight from './libs/ambientlight';
 import Settings from './libs/settings';
-import { contentScript } from './libs/messaging/content';
 
 setErrorHandler((ex) => ErrorReporter.captureException(ex));
 
